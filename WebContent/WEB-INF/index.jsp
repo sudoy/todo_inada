@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,18 +19,16 @@
 <table class="table">
 	<tr id="first"><th id="head1">#</th>
 	<th id="head2">題名</th><th id="head3">重要度</th><th>期限</th></tr>
-	<tr><td>1
-	</td><td><a href="update.html">テストテスト</a></td><td>★★★</td>
-	<td>2015/06/20</td></tr>
-	<tr><td>2
-	</td><td><a href="update.html">テストテスト</a></td><td>★</td>
-	<td>2015/06/22</td></tr>
-	<tr><td>3
-	</td><td><a href="update.html">テストテスト</a></td><td>★★★</td>
-	<td>2015/06/20</td></tr>
-	<tr><td>4
-	</td><td><a href="update.html">テストテスト</a></td><td>★★</td>
-	<td></td></tr>
+
+	<c:forEach items="${nlist}" var="i" varStatus="s">
+	<tr>
+	<td>${i}</td>
+	<td><a href="update.html">${dlist[s.index]}</a></td>
+	<td>${jlist[s.index]}</td>
+	<td>${klist[s.index]}</td>
+	</tr>
+	</c:forEach>
+
 	<tr><td colspan="4" id="ue"><button type="submit" class="btn btn-primary" id="touroku"
 	onclick="location.href='entry.html'">追加</button>
 	</td></tr>
