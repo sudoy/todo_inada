@@ -20,12 +20,12 @@
 	<tr id="first"><th id="head1">#</th>
 	<th id="head2">題名</th><th id="head3">重要度</th><th>期限</th></tr>
 
-	<c:forEach items="${nlist}" var="i" varStatus="s">
+	<c:forEach items="${form}" var="i">
 	<tr>
-	<td>${i}</td>
-	<td><a href="update.html">${dlist[s.index]}</a></td>
-	<td>${jlist[s.index]}</td>
-	<td>${klist[s.index]}</td>
+	<td>${i.number}</td>
+	<td><a href="update.html">${i.daimei}</a></td>
+	<td>${i.juyodoval}</td>
+	<td>${i.kigen}</td>
 	</tr>
 	</c:forEach>
 
