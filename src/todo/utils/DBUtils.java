@@ -15,8 +15,8 @@ public class DBUtils {
 			throws NamingException, SQLException {
 		Context initContext = new InitialContext();
 		Context envContext = (Context) initContext.lookup("java:/comp/env");
-		DataSource ds = (DataSource) envContext.lookup("jdbc/mysql");
-		return ds.getConnection();
+		DataSource todolist_inada = (DataSource) envContext.lookup("jdbc/mysql");
+		return todolist_inada.getConnection();
 	}
 
 	public static void close(Connection con, PreparedStatement ps, ResultSet rs) {
