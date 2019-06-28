@@ -21,4 +21,27 @@ public class HTMLUtils {
 		return formatKigen;
 	}
 
+	public static String radio1(String juyodoval) {
+		if(juyodoval.equals("option1")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+	public static String radio2(String juyodoval) {
+		if(juyodoval.equals("option2")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+	public static String radio3(String juyodoval) {
+		if(juyodoval.equals("option3")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+
+
 }

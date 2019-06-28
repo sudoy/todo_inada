@@ -51,14 +51,13 @@
 
 	<tr><th>重要度</th>
 		<td id="radio"><label class="radio-inline">
-	<input type="radio" name="juyodoval" value="option1" ${radio1}
-	<c:if test="${error == null}">checked</c:if>> ★★★
+	<input type="radio" name="juyodoval" value="option1" ${form.radio1} ${checked}> ★★★
 	</label><br>
 	<label class="radio-inline">
-	<input type="radio" name="juyodoval" value="option2" ${radio2}> ★★
+	<input type="radio" name="juyodoval" value="option2" ${form.radio2}> ★★
 	</label><br>
 	<label class="radio-inline">
-	<input type="radio" name="juyodoval" value="option3" ${radio3}> ★
+	<input type="radio" name="juyodoval" value="option3" ${form.radio3}> ★
 	</label></td>
 	</tr>
 

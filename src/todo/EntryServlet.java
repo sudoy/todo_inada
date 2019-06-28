@@ -16,12 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import todo.forms.EntryForm;
 import todo.services.EntryService;
+import todo.utils.HTMLUtils;
 
 @WebServlet("/entry.html")
 public class EntryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		req.setAttribute("checked", "checked");
 		getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 	}
 
@@ -36,7 +39,11 @@ public class EntryServlet extends HttpServlet {
 		String juyodoval = req.getParameter("juyodoval");
 		String kigen = req.getParameter("kigen");
 
-		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen);
+		String radio1 = HTMLUtils.radio1(juyodoval);
+		String radio2 = HTMLUtils.radio2(juyodoval);
+		String radio3 = HTMLUtils.radio3(juyodoval);
+
+		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
 
 		List<String> error = validate(form);
 
@@ -48,12 +55,9 @@ public class EntryServlet extends HttpServlet {
 
 			req.setAttribute("error", error);
 			req.setAttribute("form", form);
-			req.setAttribute("radio1", radio1(juyodoval));
-			req.setAttribute("radio2", radio2(juyodoval));
-			req.setAttribute("radio3", radio3(juyodoval));
+
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 		}
-
 	}
 
 	private List<String> validate(EntryForm form) {
@@ -88,28 +92,6 @@ public class EntryServlet extends HttpServlet {
 
 		return error;
 
-	}
-
-	public String radio1(String juyodoval) {
-		if(juyodoval.equals("option1")) {
-			return "checked";
-		}else {
-			return "";
-		}
-	}
-	public String radio2(String juyodoval) {
-		if(juyodoval.equals("option2")) {
-			return "checked";
-		}else {
-			return "";
-		}
-	}
-	public String radio3(String juyodoval) {
-		if(juyodoval.equals("option3")) {
-			return "checked";
-		}else {
-			return "";
-		}
 	}
 
 }
