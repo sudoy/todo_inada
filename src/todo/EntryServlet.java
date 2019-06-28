@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import todo.forms.EntryForm;
+import todo.services.EntryService;
+
 @WebServlet("/entry.html")
 public class EntryServlet extends HttpServlet {
 	@Override
@@ -19,8 +22,18 @@ public class EntryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		req.setCharacterEncoding("utf-8");
 
-		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+		String daimei = req.getParameter("daimei");
+		String syosai = req.getParameter("syosai");
+		String juyodoval = req.getParameter("juyodoval");
+		String kigen = req.getParameter("kigen");
+
+		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen);
+
+		EntryService es = new EntryService();
+		es.service(form);
+		resp.sendRedirect("index.html");
 
 	}
 
