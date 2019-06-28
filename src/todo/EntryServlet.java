@@ -1,5 +1,3 @@
-//null変換の処理Serviceに移す
-//checkedがない場合の処理
 
 package todo;
 

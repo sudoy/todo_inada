@@ -23,8 +23,7 @@
 	<tr><th>題名</th>
 	<td><input class="form-control" type="text" name="daimei" placeholder="題名"></td></tr>
 	<tr><th>詳細</th>
-	<td><textarea class="form-control" id="detail" rows="3" name="syosai" placeholder="詳細">
-	</textarea></td>
+	<td><textarea class="form-control" id="detail" rows="3" name="syosai" placeholder="詳細"></textarea></td>
 	</tr>
 
 	<tr><th>重要度</th>

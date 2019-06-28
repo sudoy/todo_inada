@@ -27,9 +27,6 @@ public class EntryService {
 			if(kigen.equals("")) {
 				kigen = null;
 			}
-			if(juyodoval.equals("")) {
-				juyodoval = null;
-			}
 
 			ps.setString(1, form.getDaimei());
 			ps.setString(2, form.getSyosai());
