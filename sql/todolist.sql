@@ -5,15 +5,15 @@ create table todolist(
 	daimei varchar(100),
 	syosai varchar(100),
 	juyodoval varchar(20),
-	kigen date
+	kigen varchar(100)
 
 );
 
 insert into todolist(number, daimei, syosai, juyodoval, kigen)
-values(1, 'ƒeƒXƒgƒeƒXƒg', 'SQL‚ÌŠm”FƒeƒXƒg‚ÌÌ“_‚Æ•ñ‘‚ğì¬‚·‚éB', 'option1', '2015/06/15');
+values(1, 'ãƒ†ã‚¹ãƒˆãƒ†ã‚¹ãƒˆ', 'SQLã®ç¢ºèªãƒ†ã‚¹ãƒˆã®æ¡ç‚¹ã¨å ±å‘Šæ›¸ã‚’ä½œæˆã™ã‚‹ã€‚', 'option1', '2015/06/15');
 
 insert into todolist(number, daimei, syosai, juyodoval, kigen)
-values(2, 'ƒeƒXƒg2', 'ƒQ[ƒ€À‹µŒ©‚éB', 'option2', '2019/06/27');
+values(2, 'ãƒ†ã‚¹ãƒˆ2', 'ã‚²ãƒ¼ãƒ å®Ÿæ³è¦‹ã‚‹ã€‚', 'option2', '2019/06/27');
 
 insert into todolist(number, daimei, syosai, juyodoval, kigen)
-values(3, 'ƒeƒXƒg3', '–{‰®Šñ‚éB', 'option1', '2019/06/27');
+values(3, 'ãƒ†ã‚¹ãƒˆ3', 'æœ¬å±‹å¯„ã‚‹ã€‚', 'option1', '2019/06/27');

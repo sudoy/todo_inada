@@ -1,6 +1,9 @@
 package todo;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +21,7 @@ public class EntryServlet extends HttpServlet {
 			throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -31,10 +35,51 @@ public class EntryServlet extends HttpServlet {
 
 		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen);
 
-		EntryService es = new EntryService();
-		es.service(form);
-		resp.sendRedirect("index.html");
+		int i = validate(form);
+
+		if (i == 0) {
+			EntryService es = new EntryService();
+			es.service(form);
+			resp.sendRedirect("index.html");
+		} else {
+			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
+		}
 
 	}
+
+	private int validate(EntryForm form) {
+
+		int i = 0;
+
+		if (form.getDaimei().equals("")) {//daimeiが空
+			i++;
+		}
+		if (100 < form.getDaimei().length()) {//daimeiが100字より多い
+			i++;
+		}
+
+		if (!(form.getKigen().equals(""))) {//kigenが空じゃない時
+
+			try {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+				String kigen = form.getKigen();
+				dtf.format(LocalDate.parse(kigen, dtf));//ここで変換できればok
+			} catch (DateTimeParseException e) {
+				i++;
+			}
+		}
+
+		//option1,2,3のどれでもない
+		if (!(form.getJuyodoval().equals("option1")) || !(form.getJuyodoval().equals("option1"))
+				|| !(form.getJuyodoval().equals("option1"))) {
+			i++;
+		}
+
+		return i;
+
+	}
+
+	//重要度がちゃんとoption1,2,3のどれかで返ってきているか判定？？
+	//（ (ex) hoge って返ってきたらエラー）
 
 }
