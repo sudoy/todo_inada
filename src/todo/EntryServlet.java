@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,27 +38,33 @@ public class EntryServlet extends HttpServlet {
 
 		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen);
 
-		int i = validate(form);
+		List<String> error = validate(form);
 
-		if (i == 0) {
+		if (error.size() == 0) {
 			EntryService es = new EntryService();
 			es.service(form);
 			resp.sendRedirect("index.html");
 		} else {
+
+			req.setAttribute("error", error);
+			req.setAttribute("form", form);
+			req.setAttribute("radio1", radio1(juyodoval));
+			req.setAttribute("radio2", radio2(juyodoval));
+			req.setAttribute("radio3", radio3(juyodoval));
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 		}
 
 	}
 
-	private int validate(EntryForm form) {
+	private List<String> validate(EntryForm form) {
 
-		int i = 0;
+		List<String> error = new ArrayList<>();
 
 		if (form.getDaimei().equals("")) {//daimeiが空
-			i++;
+			error.add("題名は必須入力です。");
 		}
 		if (100 < form.getDaimei().length()) {//daimeiが100字より多い
-			i++;
+			error.add("題名は100文字以内にしてください。");
 		}
 
 		if (!(form.getKigen().equals(""))) {//kigenが空じゃない時
@@ -66,23 +74,42 @@ public class EntryServlet extends HttpServlet {
 				String kigen = form.getKigen();
 				dtf.format(LocalDate.parse(kigen, dtf));//ここで変換できればok
 			} catch (DateTimeParseException e) {
-				i++;
+				error.add("期限は「YYYY/MM/DD」形式で入力して下さい。");
 			}
 		}
 
-		//option1,2,3のどれでもない
+		//option1,2,3のどれでもない、またはnull
 		if (form.getJuyodoval() == null) {
-			i++;
-		} else if (!(form.getJuyodoval().equals("option1")) || !(form.getJuyodoval().equals("option1"))
-				|| !(form.getJuyodoval().equals("option1"))) {
-			i++;
+			error.add("重要度は必須入力です。");
+		} else if (!(form.getJuyodoval().equals("option1")) && !(form.getJuyodoval().equals("option2"))
+				&& !(form.getJuyodoval().equals("option3"))) {
+			error.add("重要度の入力が不適です。");
 		}
 
-		return i;
+		return error;
 
 	}
 
-	//重要度がちゃんとoption1,2,3のどれかで返ってきているか判定？？
-	//（ (ex) hoge って返ってきたらエラー）
+	public String radio1(String juyodoval) {
+		if(juyodoval.equals("option1")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+	public String radio2(String juyodoval) {
+		if(juyodoval.equals("option2")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+	public String radio3(String juyodoval) {
+		if(juyodoval.equals("option3")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
 
 }

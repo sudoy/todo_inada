@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,7 +14,27 @@
 
 <div class="container">
 
-<jsp:include page="message.jsp"/>
+<div class="alert alert-success alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">
+	&times;</span></button>
+	<h2><strong>完了しました！</strong></h2>
+	<ul>
+	 <li>No.27のTodoを更新しました。</li>
+	 </ul>
+</div>
+<c:if test="${error != null}">
+<div class="alert alert-danger alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">
+	&times;</span></button>
+	<h2><strong>エラーが発生しました！</strong></h2>
+	<ul>
+	<c:forEach items="${error}" var="i">
+	<li>${i}</li>
+	</c:forEach>
+	</ul>
+</div>
+</c:if>
+
 
 <h3><strong>登録フォーム</strong></h3>
 
@@ -21,25 +42,29 @@
 	<table>
 
 	<tr><th>題名</th>
-	<td><input class="form-control" type="text" name="daimei" placeholder="題名"></td></tr>
+	<td><input class="form-control" type="text" name="daimei" placeholder="題名"
+	value="${form.daimei}"></td></tr>
 	<tr><th>詳細</th>
-	<td><textarea class="form-control" id="detail" rows="3" name="syosai" placeholder="詳細"></textarea></td>
+	<td><textarea class="form-control" id="detail" rows="3" name="syosai"
+	placeholder="詳細">${form.syosai}</textarea></td>
 	</tr>
 
 	<tr><th>重要度</th>
 		<td id="radio"><label class="radio-inline">
-	<input type="radio" name="juyodoval" id="inlineRadio1" value="option1" checked> ★★★
+	<input type="radio" name="juyodoval" value="option1" ${radio1}
+	<c:if test="${error == null}">checked</c:if>> ★★★
 	</label><br>
 	<label class="radio-inline">
-	<input type="radio" name="juyodoval" id="inlineRadio2" value="option2"> ★★
+	<input type="radio" name="juyodoval" value="option2" ${radio2}> ★★
 	</label><br>
 	<label class="radio-inline">
-	<input type="radio" name="juyodoval" id="inlineRadio3" value="option3"> ★
+	<input type="radio" name="juyodoval" value="option3" ${radio3}> ★
 	</label></td>
 	</tr>
 
 	<tr><th>期限</th>
-		<td><input type="text" class="form-control" id="kigen" name="kigen" placeholder="期限"></td>
+		<td><input type="text" class="form-control" id="kigen" name="kigen" placeholder="期限"
+		 value="${form.kigen}"></td>
 	</tr>
 	<tr><th></th>
 	<td id="canto">
