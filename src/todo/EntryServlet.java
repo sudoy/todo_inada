@@ -1,3 +1,6 @@
+//null変換の処理Serviceに移す
+//checkedがない場合の処理
+
 package todo;
 
 import java.io.IOException;
@@ -33,10 +36,6 @@ public class EntryServlet extends HttpServlet {
 		String juyodoval = req.getParameter("juyodoval");
 		String kigen = req.getParameter("kigen");
 
-		if(kigen.equals("")) {
-			kigen = null;
-		}
-
 		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen);
 
 		int i = validate(form);
@@ -62,7 +61,7 @@ public class EntryServlet extends HttpServlet {
 			i++;
 		}
 
-		if (form.getKigen() != null) {//kigenが空じゃない時
+		if (!(form.getKigen().equals(""))) {//kigenが空じゃない時
 
 			try {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -74,7 +73,9 @@ public class EntryServlet extends HttpServlet {
 		}
 
 		//option1,2,3のどれでもない
-		if (!(form.getJuyodoval().equals("option1")) || !(form.getJuyodoval().equals("option1"))
+		if (form.getJuyodoval() == null) {
+			i++;
+		} else if (!(form.getJuyodoval().equals("option1")) || !(form.getJuyodoval().equals("option1"))
 				|| !(form.getJuyodoval().equals("option1"))) {
 			i++;
 		}

@@ -22,12 +22,20 @@ public class EntryService {
 			sql = "INSERT INTO todolist (daimei, syosai, juyodoval, kigen) VALUES(?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 
+			String kigen = form.getKigen();
+			String juyodoval = form.getJuyodoval();
+			if(kigen.equals("")) {
+				kigen = null;
+			}
+			if(juyodoval.equals("")) {
+				juyodoval = null;
+			}
+
 			ps.setString(1, form.getDaimei());
 			ps.setString(2, form.getSyosai());
-			ps.setString(3, form.getJuyodoval());
-			ps.setString(4, form.getKigen());
+			ps.setString(3, juyodoval);
+			ps.setString(4, kigen);
 
-			System.out.println(ps);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			throw new ServletException(e);
