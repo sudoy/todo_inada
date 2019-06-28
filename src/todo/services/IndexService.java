@@ -35,7 +35,10 @@ public class IndexService {
 				String number = rs.getString("number");
 				String daimei = rs.getString("daimei");
 				String juyodoval = HTMLUtils.juyodoFormat(rs.getString("juyodoval"));
-				String kigen = HTMLUtils.kigenFormat(rs.getString("kigen"));
+				String kigen = rs.getString("kigen");
+				if(kigen != null) {
+					kigen = HTMLUtils.kigenFormat(kigen);
+				}
 
 				IndexForm f = new IndexForm(number, daimei, juyodoval, kigen);
 				form.add(f);

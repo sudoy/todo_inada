@@ -33,6 +33,10 @@ public class EntryServlet extends HttpServlet {
 		String juyodoval = req.getParameter("juyodoval");
 		String kigen = req.getParameter("kigen");
 
+		if(kigen.equals("")) {
+			kigen = null;
+		}
+
 		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen);
 
 		int i = validate(form);
@@ -58,7 +62,7 @@ public class EntryServlet extends HttpServlet {
 			i++;
 		}
 
-		if (!(form.getKigen().equals(""))) {//kigenが空じゃない時
+		if (form.getKigen() != null) {//kigenが空じゃない時
 
 			try {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");

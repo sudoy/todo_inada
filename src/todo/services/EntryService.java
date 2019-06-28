@@ -27,6 +27,7 @@ public class EntryService {
 			ps.setString(3, form.getJuyodoval());
 			ps.setString(4, form.getKigen());
 
+			System.out.println(ps);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			throw new ServletException(e);
