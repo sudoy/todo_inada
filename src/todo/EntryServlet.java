@@ -23,8 +23,8 @@ public class EntryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		req.setAttribute("checked", "checked");
+		EntryForm form = new EntryForm("checked");
+		req.setAttribute("form", form);
 		getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 	}
 

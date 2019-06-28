@@ -10,6 +10,9 @@ public class EntryForm {
 	private String radio1;
 	private String radio2;
 	private String radio3;
+
+	private String checked;
+
 	public EntryForm(String daimei, String syosai, String juyodoval, String kigen, String radio1, String radio2,
 			String radio3) {
 		super();
@@ -20,7 +23,12 @@ public class EntryForm {
 		this.radio1 = radio1;
 		this.radio2 = radio2;
 		this.radio3 = radio3;
+
 	}
+	public EntryForm(String checked) {
+		this.setChecked(checked);
+	}
+
 	public String getDaimei() {
 		return daimei;
 	}
@@ -62,6 +70,12 @@ public class EntryForm {
 	}
 	public void setRadio3(String radio3) {
 		this.radio3 = radio3;
+	}
+	public String getChecked() {
+		return checked;
+	}
+	public void setChecked(String checked) {
+		this.checked = checked;
 	}
 
 

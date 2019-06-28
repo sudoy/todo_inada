@@ -51,7 +51,7 @@
 
 	<tr><th>重要度</th>
 		<td id="radio"><label class="radio-inline">
-	<input type="radio" name="juyodoval" value="option1" ${form.radio1} ${checked}> ★★★
+	<input type="radio" name="juyodoval" value="option1" ${form.radio1} ${form.checked}> ★★★
 	</label><br>
 	<label class="radio-inline">
 	<input type="radio" name="juyodoval" value="option2" ${form.radio2}> ★★

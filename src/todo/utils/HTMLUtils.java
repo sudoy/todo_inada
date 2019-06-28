@@ -43,5 +43,13 @@ public class HTMLUtils {
 		}
 	}
 
+//	public static String checked(String radio1,String radio2, String radio3) {
+//		if(radio1.equals("") && radio2.equals("") && radio3.equals("")) {
+//			return "checked";
+//		}else {
+//			return "";
+//		}
+//	}
+
 
 }
