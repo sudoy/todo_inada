@@ -11,7 +11,6 @@ public class EntryForm {
 	private String radio2;
 	private String radio3;
 
-	private String checked;
 
 	public EntryForm(String daimei, String syosai, String juyodoval, String kigen, String radio1, String radio2,
 			String radio3) {
@@ -25,8 +24,8 @@ public class EntryForm {
 		this.radio3 = radio3;
 
 	}
-	public EntryForm(String checked) {
-		this.setChecked(checked);
+	public EntryForm(String radio1) {
+		this.radio1 = radio1;
 	}
 
 	public String getDaimei() {
@@ -71,12 +70,5 @@ public class EntryForm {
 	public void setRadio3(String radio3) {
 		this.radio3 = radio3;
 	}
-	public String getChecked() {
-		return checked;
-	}
-	public void setChecked(String checked) {
-		this.checked = checked;
-	}
-
 
 }
