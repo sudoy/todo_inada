@@ -28,7 +28,7 @@ public class UpdateService {
 			rs = ps.executeQuery();
 			UpdateForm uf = null;
 
-			while(rs.next()) {
+			while (rs.next()) {
 
 				String daimei = rs.getString("daimei");
 				String syosai = rs.getString("syosai");
@@ -38,12 +38,10 @@ public class UpdateService {
 					kigen = HTMLUtils.kigenFormat(kigen);
 				}
 
-
 				uf = new UpdateForm(daimei, syosai, kigen, HTMLUtils.radio1(juyodoval),
 						HTMLUtils.radio2(juyodoval), HTMLUtils.radio3(juyodoval));
 			}
-				return uf;
-
+			return uf;
 
 		} catch (Exception e) {
 			throw new ServletException(e);
