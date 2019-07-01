@@ -65,11 +65,9 @@
 	<tr><th></th>
 	<td id="canto">
 	<div class="form-group">
-		<button type="button" class="btn btn-default" id="cancel"
-		 onclick="location.href='index.html'">キャンセル</button>
+		<a type="button" class="btn btn-default" id="cancel" href="index.html">キャンセル</a>
 		<input type="submit" class="btn btn-primary" id="kousin" value="更新">
-		<button type="button" class="btn btn-danger" id="sakujo"
-		onclick="location.href='delete.html?number=${form.number}'">削除</button>
+		<a class="btn btn-danger" id="sakujo" href="delete.html?number=${form.number}">削除</a>
 	</div>
 
 	</td></tr>
