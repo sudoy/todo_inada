@@ -9,8 +9,12 @@ public class UpdateForm {
 	String radio1;
 	String radio2;
 	String radio3;
-	public UpdateForm(String daimei, String syosai, String kigen, String radio1, String radio2, String radio3) {
+
+	String juyodoval;
+	String number;
+	public UpdateForm(String number, String daimei, String syosai, String kigen, String radio1, String radio2, String radio3) {
 		super();
+		this.number = number;
 		this.daimei = daimei;
 		this.syosai = syosai;
 		this.kigen = kigen;
@@ -18,6 +22,20 @@ public class UpdateForm {
 		this.radio2 = radio2;
 		this.radio3 = radio3;
 	}
+
+	public UpdateForm(String number, String daimei, String syosai, String juyodoval, String kigen,
+			String radio1, String radio2, String radio3) {
+		super();
+		this.number = number;
+		this.daimei = daimei;
+		this.syosai = syosai;
+		this.juyodoval = juyodoval;
+		this.kigen = kigen;
+		this.radio1 = radio1;
+		this.radio2 = radio2;
+		this.radio3 = radio3;
+	}
+
 	public String getDaimei() {
 		return daimei;
 	}
@@ -54,6 +72,21 @@ public class UpdateForm {
 	public void setRadio3(String radio3) {
 		this.radio3 = radio3;
 	}
+	public String getJuyodoval() {
+		return juyodoval;
+	}
+	public void setJuyodoval(String juyodoval) {
+		this.juyodoval = juyodoval;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
 
 
 

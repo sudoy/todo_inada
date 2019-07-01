@@ -38,9 +38,10 @@ public class UpdateService {
 					kigen = HTMLUtils.kigenFormat(kigen);
 				}
 
-				uf = new UpdateForm(daimei, syosai, kigen, HTMLUtils.radio1(juyodoval),
+				uf = new UpdateForm(number, daimei, syosai, kigen, HTMLUtils.radio1(juyodoval),
 						HTMLUtils.radio2(juyodoval), HTMLUtils.radio3(juyodoval));
 			}
+
 			return uf;
 
 		} catch (Exception e) {
@@ -48,6 +49,41 @@ public class UpdateService {
 		} finally {
 			DBUtils.close(con, ps, rs);
 		}
+	}
+
+	public void postService(UpdateForm form) throws ServletException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+
+		try {
+
+			con = DBUtils.getConnection();
+			sql = "update todolist set daimei = ?, syosai = ?, juyodoval = ?, kigen = ? where number = ?";
+			ps = con.prepareStatement(sql);
+
+			String kigen = form.getKigen();
+			String juyodoval = form.getJuyodoval();
+			if (kigen.equals("")) {
+				kigen = null;
+			}
+
+			ps.setString(1, form.getDaimei());
+			ps.setString(2, form.getSyosai());
+			ps.setString(3, juyodoval);
+			ps.setString(4, kigen);
+			ps.setString(5, form.getNumber());
+
+			System.out.println("ps:" + ps);
+
+			ps.executeUpdate();
+		} catch (Exception e) {
+			throw new ServletException(e);
+		} finally {
+			DBUtils.close(con, ps);
+
+		}
+
 	}
 
 }
