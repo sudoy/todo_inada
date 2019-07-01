@@ -22,8 +22,9 @@ public class UpdateService {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "SELECT daimei, syosai, juyodoval, kigen FROM todolist where number = '" + number + "'";
+			sql = "SELECT daimei, syosai, juyodoval, kigen FROM todolist where number = ?";
 			ps = con.prepareStatement(sql);
+			ps.setString(1, number);
 			rs = ps.executeQuery();
 			UpdateForm uf = null;
 
@@ -31,15 +32,15 @@ public class UpdateService {
 
 				String daimei = rs.getString("daimei");
 				String syosai = rs.getString("syosai");
-				String juyodoval = HTMLUtils.juyodoFormat(rs.getString("juyodoval"));
+				String juyodoval = rs.getString("juyodoval");
 				String kigen = rs.getString("kigen");
 				if (kigen != null) {
 					kigen = HTMLUtils.kigenFormat(kigen);
 				}
-				System.out.println("sql:" + sql);
-				System.out.println("rs:" + rs);
 
-				uf = new UpdateForm(daimei, syosai, juyodoval, kigen);
+
+				uf = new UpdateForm(daimei, syosai, kigen, HTMLUtils.radio1(juyodoval),
+						HTMLUtils.radio2(juyodoval), HTMLUtils.radio3(juyodoval));
 			}
 				return uf;
 

@@ -28,13 +28,13 @@
 
 	<tr><th>重要度</th>
 		<td id="radio"><label class="radio-inline">
-	<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked> ★★★
+	<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" ${form.radio1}> ★★★
 	</label><br>
 	<label class="radio-inline">
-	<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> ★★
+	<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" ${form.radio2}> ★★
 	</label><br>
 	<label class="radio-inline">
-	<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> ★
+	<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" ${form.radio3}> ★
 	</label></td>
 	</tr>
 
