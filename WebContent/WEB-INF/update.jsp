@@ -17,14 +17,13 @@
 
 <h3><strong>更新フォーム</strong></h3>
 
-<form class="form-horizontal" method="POST" action="index.html">
+<form class="form-horizontal" method="GET" action="index.html">
 	<table>
 
 	<tr><th>題名</th>
-	<td><input class="form-control" type="text" value="テストテスト"></td></tr>
+	<td><input class="form-control" type="text" value="${form.daimei}"></td></tr>
 	<tr><th>詳細</th>
-	<td><textarea class="form-control" id="biko" rows="3">SQLの確認テストの採点と報告書を作成する。
-	</textarea></td>
+	<td><textarea class="form-control" id="biko" rows="3">${form.syosai}</textarea></td>
 	</tr>
 
 	<tr><th>重要度</th>
@@ -40,7 +39,7 @@
 	</tr>
 
 	<tr><th>期限</th>
-		<td><input type="text" class="form-control" id="kigen" value="2015/06/15"></td>
+		<td><input type="text" class="form-control" id="kigen" value="${form.kigen}"></td>
 	</tr>
 	<tr><th></th>
 	<td id="canto">

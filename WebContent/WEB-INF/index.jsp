@@ -16,6 +16,7 @@
 
 <jsp:include page="message.jsp"/>
 
+
 <table class="table">
 	<tr id="first"><th id="head1">#</th>
 	<th id="head2">題名</th><th id="head3">重要度</th><th>期限</th></tr>
@@ -23,7 +24,11 @@
 	<c:forEach items="${form}" var="i">
 	<tr>
 	<td>${i.number}</td>
-	<td><a href="update.html">${i.daimei}</a></td>
+	<td><a href="update.html?number=${i.number}">${i.daimei}</a>
+		<form method="GET" action="update.html">
+		<input type="hidden" name="number" value="${i.number}">
+		</form>
+	</td>
 	<td>${i.juyodoval}</td>
 	<td>${i.kigen}</td>
 	</tr>
@@ -33,6 +38,7 @@
 	onclick="location.href='entry.html'">追加</button>
 	</td></tr>
 </table>
+
 
 </div><!--/container-->
 
