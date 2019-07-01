@@ -68,8 +68,8 @@
 		<button type="button" class="btn btn-default" id="cancel"
 		 onclick="location.href='index.html'">キャンセル</button>
 		<input type="submit" class="btn btn-primary" id="kousin" value="更新">
-		<input type="submit" class="btn btn-danger" id="sakujo" value="削除"
-		onclick="location.href='index.html'">
+		<button type="button" class="btn btn-danger" id="sakujo"
+		onclick="location.href='delete.html?number2=${form.number}'">削除</button>
 	</div>
 
 	</td></tr>

@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,10 +68,12 @@ public class UpdateServlet extends HttpServlet {
 
 		List<String> error = new ArrayList<>();
 
-		Pattern pattern = Pattern.compile("^[0-9]$");
-
-		if(!(pattern.matcher(form.getNumber()).find())) {
-			error.add("#は必須入力です。");
+		if (form.getNumber().equals("")) {
+			try {
+				Integer.parseInt(form.getNumber());
+			} catch (Exception e) {
+				error.add("#は必須入力です。");
+			}
 		}
 
 		if (form.getDaimei().equals("")) {//daimeiが空
