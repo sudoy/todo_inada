@@ -23,8 +23,6 @@ public class DeleteService {
 
 			ps.setString(1, form.getNumber());
 
-			System.out.println("ps:" + ps);
-
 			ps.executeUpdate();
 		} catch (Exception e) {
 			throw new ServletException(e);

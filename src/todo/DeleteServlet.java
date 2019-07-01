@@ -16,8 +16,7 @@ public class DeleteServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String number = req.getParameter("number2");
-		System.out.println("number" + number);
+		String number = req.getParameter("number");
 		DeleteForm form = new DeleteForm(number);
 
 		int i = validate(number);
