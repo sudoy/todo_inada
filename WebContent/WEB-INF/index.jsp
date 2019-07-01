@@ -24,11 +24,7 @@
 	<c:forEach items="${form}" var="i">
 	<tr>
 	<td>${i.number}</td>
-	<td><a href="update.html?number=${i.number}">${i.daimei}</a>
-		<form method="GET" action="update.html">
-		<input type="hidden" name="number" value="${i.number}">
-		</form>
-	</td>
+	<td><a href="update.html?number=${i.number}">${i.daimei}</a></td>
 	<td>${i.juyodoval}</td>
 	<td>${i.kigen}</td>
 	</tr>
