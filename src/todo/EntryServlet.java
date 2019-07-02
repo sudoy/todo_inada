@@ -53,14 +53,11 @@ public class EntryServlet extends HttpServlet {
 		List<String> error = validate(form);
 		HttpSession session = req.getSession();
 
-		int count = 0;
-
 		if (error.size() == 0) {
 			EntryService es = new EntryService();
 			es.service(form);
 			session.setAttribute("kousintouroku", "登録しました。");
 			session.setAttribute("error", null);
-			session.setAttribute("count", count);
 
 			resp.sendRedirect("index.html");
 		} else {

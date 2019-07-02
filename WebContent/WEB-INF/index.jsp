@@ -14,9 +14,7 @@
 
 <div class="container">
 
-<c:if test="${count == 0}">
 <jsp:include page="message.jsp"/>
-</c:if>
 
 <table class="table">
 	<tr id="first"><th id="head1">#</th>

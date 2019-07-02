@@ -35,14 +35,11 @@ public class IndexServlet extends HttpServlet {
 
 		IndexService is = new IndexService();
 
-		int count = 1;
-
 		req.setAttribute("form", is.service());
 
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
 
-		session.setAttribute("count", count);//リロードしたらメッセージが表示されないように
-
+		session.invalidate();
 	}
 
 }

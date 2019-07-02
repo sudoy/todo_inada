@@ -28,7 +28,6 @@ public class UpdateServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.invalidate();
 
-
 		UpdateService us = new UpdateService();
 
 		req.setAttribute("form", us.service(req.getParameter("number")));//indexから取得したnumberをServiceに渡す
@@ -56,13 +55,11 @@ public class UpdateServlet extends HttpServlet {
 
 		List<String> error = validate(form);
 		HttpSession session = req.getSession();
-		int count = 0;
 
 		if (error.size() == 0) {
 
 			session.setAttribute("kousintouroku", "No." + number + "のTodoを更新しました。");
 			session.setAttribute("error", null);
-			session.setAttribute("count", count);
 
 			UpdateService us = new UpdateService();
 			us.postService(form);
@@ -73,6 +70,7 @@ public class UpdateServlet extends HttpServlet {
 			req.setAttribute("form", form);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
+
 		}
 	}
 
