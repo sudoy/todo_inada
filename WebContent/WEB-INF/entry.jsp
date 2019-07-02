@@ -14,27 +14,7 @@
 
 <div class="container">
 
-<div class="alert alert-success alert-dismissible" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">
-	&times;</span></button>
-	<h2><strong>完了しました！</strong></h2>
-	<ul>
-	 <li>No.27のTodoを更新しました。</li>
-	 </ul>
-</div>
-<c:if test="${error != null}">
-<div class="alert alert-danger alert-dismissible" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">
-	&times;</span></button>
-	<h2><strong>エラーが発生しました！</strong></h2>
-	<ul>
-	<c:forEach items="${error}" var="i">
-	<li>${i}</li>
-	</c:forEach>
-	</ul>
-</div>
-</c:if>
-
+<jsp:include page="message.jsp"/>
 
 <h3><strong>登録フォーム</strong></h3>
 

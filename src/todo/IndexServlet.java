@@ -15,6 +15,7 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
 
@@ -23,6 +24,7 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 
 		IndexService is = new IndexService();
 

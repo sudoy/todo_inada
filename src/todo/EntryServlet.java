@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import todo.forms.EntryForm;
 import todo.services.EntryService;
@@ -24,6 +25,10 @@ public class EntryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		EntryForm form = new EntryForm(HTMLUtils.radio1("option1"));
+
+		HttpSession session = req.getSession();
+		session.invalidate();
+
 		req.setAttribute("form", form);
 		getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 	}
@@ -46,14 +51,17 @@ public class EntryServlet extends HttpServlet {
 		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
 
 		List<String> error = validate(form);
+		HttpSession session = req.getSession();
 
 		if (error.size() == 0) {
 			EntryService es = new EntryService();
 			es.service(form);
+			session.setAttribute("kousintouroku", "登録しました。");
+			session.setAttribute("error", null);
 			resp.sendRedirect("index.html");
 		} else {
 
-			req.setAttribute("error", error);
+			session.setAttribute("error", error);
 			req.setAttribute("form", form);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);

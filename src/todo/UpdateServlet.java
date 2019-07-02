@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import todo.forms.UpdateForm;
 import todo.services.UpdateService;
@@ -22,6 +23,11 @@ public class UpdateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+
+		HttpSession session = req.getSession();
+		session.invalidate();
+
 
 		UpdateService us = new UpdateService();
 
@@ -34,7 +40,7 @@ public class UpdateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
+		req.setCharacterEncoding("UTF-8");
 
 		String number = req.getParameter("number"); //update文で使う
 		String daimei = req.getParameter("daimei");
@@ -49,14 +55,19 @@ public class UpdateServlet extends HttpServlet {
 		UpdateForm form = new UpdateForm(number, daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
 
 		List<String> error = validate(form);
+		HttpSession session = req.getSession();
 
 		if (error.size() == 0) {
+
+			session.setAttribute("kousintouroku", "No." + number + "のTodoを更新しました。");
+			session.setAttribute("error", null);
+
 			UpdateService us = new UpdateService();
 			us.postService(form);
 			resp.sendRedirect("index.html");
 		} else {
 
-			req.setAttribute("error", error);
+			session.setAttribute("error", error);
 			req.setAttribute("form", form);
 
 			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
