@@ -48,8 +48,7 @@
 	<tr><th></th>
 	<td id="canto">
 	<div class="form-group">
-		<button type="button" class="btn btn-default" id="cancel"
-		 onclick="location.href='index.html'">キャンセル</button>
+		<a type="button" class="btn btn-default" id="cancel" href="index.html?cancel=cancel">キャンセル</a>
 		<input type="submit" class="btn btn-primary" id="touroku" value="追加">
 	</div>
 	</td></tr>

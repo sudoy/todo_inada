@@ -56,11 +56,13 @@ public class UpdateServlet extends HttpServlet {
 
 		List<String> error = validate(form);
 		HttpSession session = req.getSession();
+		int count = 0;
 
 		if (error.size() == 0) {
 
 			session.setAttribute("kousintouroku", "No." + number + "のTodoを更新しました。");
 			session.setAttribute("error", null);
+			session.setAttribute("count", count);
 
 			UpdateService us = new UpdateService();
 			us.postService(form);

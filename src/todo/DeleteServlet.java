@@ -24,11 +24,14 @@ public class DeleteServlet extends HttpServlet {
 		int i = validate(number);
 		HttpSession session = req.getSession();
 
+		int count = 0;
+
 		if (i == 0) {
 			DeleteService ds = new DeleteService();
 			ds.service(form);
 			session.setAttribute("kousintouroku", "No." + number + "を削除しました。");
 			session.setAttribute("error", null);
+			session.setAttribute("count", count);
 			resp.sendRedirect("index.html");
 		} else {
 			resp.sendRedirect("index.html");

@@ -46,7 +46,7 @@
 	<tr><th></th>
 	<td id="canto">
 	<div class="form-group">
-		<a type="button" class="btn btn-default" id="cancel" href="index.html">キャンセル</a>
+		<a type="button" class="btn btn-default" id="cancel" href="index.html?cancel=cancel">キャンセル</a>
 		<input type="submit" class="btn btn-primary" id="kousin" value="更新">
 		<a class="btn btn-danger" id="sakujo" href="delete.html?number=${form.number}">削除</a>
 	</div>
