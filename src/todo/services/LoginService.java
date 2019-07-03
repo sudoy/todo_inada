@@ -10,17 +10,18 @@ import todo.utils.SHA2;
 
 public class LoginService {
 
-	public boolean service(LoginForm form) {
+	public LoginForm service(LoginForm form) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
 
 		boolean b = false;
+		LoginForm f;
 
 		try {
 			con = DBUtils.getConnection();
-			sql = "select mail, pass from user where mail = ? and pass = ?";
+			sql = "select mail, pass, name from user where mail = ? and pass = ?";
 			ps = con.prepareStatement(sql);
 
 			//入力されたパスワードをハッシュ化
@@ -32,22 +33,25 @@ public class LoginService {
 			rs = ps.executeQuery();
 
 			System.out.println(ps);
+			String name = null;
 
 			while (rs.next()) {
-				System.out.println(rs.getString("mail"));
-				System.out.println(rs.getString("pass"));
+				name = rs.getString("name");
 
 				if (rs.getString("mail") != null && rs.getString("pass") != null) {
 					b = true;
+
 				}
 			}
+			f = new LoginForm(b, name);
 
-			return b;
+			return f;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			b = false;
-			return b;
+			f = new LoginForm(b, null);
+			return f;
 		} finally {
 			DBUtils.close(con, ps, rs);
 		}
