@@ -21,16 +21,6 @@ h2{
 	margin: 1px 1px 5px 1px;
 }
 
-table{
-	margin: 0 auto;
-	width: 100%;
-
-}
-th, td{
-	padding: 5px;
-	text-align: left;
-}
-
 
 .alert-danger {
     color: #f32f2c;
@@ -40,4 +30,17 @@ th, td{
 
 #ue{
 	border-top-style: none;
+}
+
+.form-control{
+	margin-bottom: 5px;
+}
+.mail{
+	margin-bottom: 5px;
+}
+.btn-primary {
+	border-color: #65bfe8;
+	background-color:  #65bfe8;
+	margin-left: 450px;
+	margin-top: 30px;
 }

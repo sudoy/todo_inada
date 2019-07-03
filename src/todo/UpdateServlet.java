@@ -26,13 +26,25 @@ public class UpdateServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		HttpSession session = req.getSession();
-		session.invalidate();
+		//エラーと成功メッセージのみ解放
+		session.removeAttribute("error");
+		session.removeAttribute("kousintouroku");
 
-		UpdateService us = new UpdateService();
+		//loginがtrue(ログイン状態にある)じゃないと入れないように
+		boolean login = (boolean) session.getAttribute("login");
 
-		req.setAttribute("form", us.service(req.getParameter("number")));//indexから取得したnumberをServiceに渡す
+		if (login != true) {
+			session.setAttribute("error", "ログインしてください。");
+			resp.sendRedirect("login.html");
+		} else {
 
-		getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
+			UpdateService us = new UpdateService();
+
+			req.setAttribute("form", us.service(req.getParameter("number")));//indexから取得したnumberをServiceに渡す
+
+			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
+
+		}
 
 	}
 

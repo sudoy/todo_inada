@@ -28,18 +28,31 @@ public class IndexServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 
-		if ((req.getParameter("cancel") != null) && (req.getParameter("cancel").equals("cancel"))) {
+		//loginがtrue(ログイン状態にある)じゃないと入れないように
+		boolean login = (boolean) session.getAttribute("login");
 
-			session.invalidate();
+		if (login != true) {
+			session.setAttribute("error", "ログインしてください。");
+			resp.sendRedirect("login.html");
+		} else {
+
+			if ((req.getParameter("cancel") != null) && (req.getParameter("cancel").equals("cancel"))) {
+
+				//エラーと成功メッセージのみ解放
+				session.removeAttribute("error");
+				session.removeAttribute("kousintouroku");
+			}
+
+			IndexService is = new IndexService();
+
+			req.setAttribute("form", is.service());
+
+			getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+
+			//エラーと成功メッセージのみ解放
+			session.removeAttribute("error");
+			session.removeAttribute("kousintouroku");
 		}
-
-		IndexService is = new IndexService();
-
-		req.setAttribute("form", is.service());
-
-		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
-
-		session.invalidate();
 	}
 
 }
