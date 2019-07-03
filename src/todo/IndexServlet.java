@@ -28,10 +28,14 @@ public class IndexServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 
-		//loginがtrue(ログイン状態にある)じゃないと入れないように
-		boolean login = (boolean) session.getAttribute("login");
+		boolean login = false;
 
-		if (login != true) {
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
+
+		if (login == false) {
 			session.setAttribute("error", "ログインしてください。");
 			resp.sendRedirect("login.html");
 		} else {
@@ -41,6 +45,7 @@ public class IndexServlet extends HttpServlet {
 				//エラーと成功メッセージのみ解放
 				session.removeAttribute("error");
 				session.removeAttribute("kousintouroku");
+
 			}
 
 			IndexService is = new IndexService();

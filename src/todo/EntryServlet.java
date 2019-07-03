@@ -27,20 +27,24 @@ public class EntryServlet extends HttpServlet {
 		EntryForm form = new EntryForm(HTMLUtils.radio1("option1"));
 
 		HttpSession session = req.getSession();
-		//エラーと成功メッセージのみ解放
+		//エラーと成功メッセージのみ解放(sessionが存在するとき)
 		session.removeAttribute("error");
 		session.removeAttribute("kousintouroku");
+		boolean login = false;
 
-		//loginがtrue(ログイン状態にある)じゃないと入れないように
-		boolean login = (boolean) session.getAttribute("login");
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
 
-		if (login != true) {
+		if (login == false) {
 			session.setAttribute("error", "ログインしてください。");
 			resp.sendRedirect("login.html");
 		} else {
 			req.setAttribute("form", form);
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 		}
+
 	}
 
 	@Override

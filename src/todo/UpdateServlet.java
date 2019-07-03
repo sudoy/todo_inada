@@ -30,10 +30,14 @@ public class UpdateServlet extends HttpServlet {
 		session.removeAttribute("error");
 		session.removeAttribute("kousintouroku");
 
-		//loginがtrue(ログイン状態にある)じゃないと入れないように
-		boolean login = (boolean) session.getAttribute("login");
+		boolean login = false;
 
-		if (login != true) {
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
+
+		if (login == false) {
 			session.setAttribute("error", "ログインしてください。");
 			resp.sendRedirect("login.html");
 		} else {
