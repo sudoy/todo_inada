@@ -18,7 +18,21 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 
-		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+		HttpSession session = req.getSession();
+		boolean login = false;
+
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
+
+		if (login == false) {
+			session.setAttribute("error", "ログインしてください。");
+			resp.sendRedirect("login.html");
+		} else {
+
+			getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+		}
 
 	}
 

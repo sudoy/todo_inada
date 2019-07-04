@@ -7,16 +7,25 @@ public class LoginForm {
 
 	private String mail;
 	private String pass;
+
+
 	public LoginForm(String mail, String pass) {
 		super();
 		this.mail = mail;
 		this.pass = pass;
 	}
 
-	public LoginForm(boolean login, String name) {
+	public LoginForm(boolean login, String name, String mail) {
 		super();
 		this.login = login;
 		this.name = name;
+		this.mail = mail;
+	}
+
+
+	public LoginForm(String mail) {
+		super();
+		this.mail = mail;
 	}
 
 	public String getMail() {

@@ -50,36 +50,48 @@ public class EntryServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		req.setCharacterEncoding("utf-8");
-
-		String daimei = req.getParameter("daimei");
-		String syosai = req.getParameter("syosai");
-		String juyodoval = req.getParameter("juyodoval");
-		String kigen = req.getParameter("kigen");
-
-		String radio1 = HTMLUtils.radio1(juyodoval);
-		String radio2 = HTMLUtils.radio2(juyodoval);
-		String radio3 = HTMLUtils.radio3(juyodoval);
-
-		EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
-
-		List<String> error = validate(form);
 		HttpSession session = req.getSession();
+		boolean login = false;
 
-		if (error.size() == 0) {
-			EntryService es = new EntryService();
-			es.service(form);
-			session.setAttribute("kousintouroku", "登録しました。");
-			session.setAttribute("error", null);
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
 
-			resp.sendRedirect("index.html");
+		if (login == false) {
+			session.setAttribute("error", "ログインしてください。");
+			resp.sendRedirect("login.html");
 		} else {
 
-			session.setAttribute("error", error);
-			req.setAttribute("form", form);
+			req.setCharacterEncoding("utf-8");
 
-			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
+			String daimei = req.getParameter("daimei");
+			String syosai = req.getParameter("syosai");
+			String juyodoval = req.getParameter("juyodoval");
+			String kigen = req.getParameter("kigen");
+
+			String radio1 = HTMLUtils.radio1(juyodoval);
+			String radio2 = HTMLUtils.radio2(juyodoval);
+			String radio3 = HTMLUtils.radio3(juyodoval);
+
+			EntryForm form = new EntryForm(daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
+
+			List<String> error = validate(form);
+
+			if (error.size() == 0) {
+				EntryService es = new EntryService();
+				es.service(form);
+				session.setAttribute("kousintouroku", "登録しました。");
+				session.setAttribute("error", null);
+
+				resp.sendRedirect("index.html");
+			} else {
+
+				session.setAttribute("error", error);
+				req.setAttribute("form", form);
+
+				getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
+			}
 		}
 	}
 

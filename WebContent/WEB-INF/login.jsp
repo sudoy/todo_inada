@@ -31,7 +31,8 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-10">
-								<input type="email" class="form-control" name="mail" placeholder="メールアドレス">
+								<input type="email" class="form-control" name="mail" placeholder="メールアドレス"
+								value="${mailForm.mail}">
 							</div>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" name="pass" placeholder="パスワード">

@@ -18,6 +18,9 @@ public class LoginService {
 
 		boolean b = false;
 		LoginForm f;
+		String name = null;
+		String mail = null;
+		String pass = null;
 
 		try {
 			con = DBUtils.getConnection();
@@ -32,25 +35,24 @@ public class LoginService {
 
 			rs = ps.executeQuery();
 
-			System.out.println(ps);
-			String name = null;
-
 			while (rs.next()) {
 				name = rs.getString("name");
+				mail = rs.getString("mail");
+				pass = rs.getString("pass");
 
-				if (rs.getString("mail") != null && rs.getString("pass") != null) {
+				if (mail != null && pass != null) {
 					b = true;
 
 				}
 			}
-			f = new LoginForm(b, name);
+			f = new LoginForm(b, name, form.getMail());
 
 			return f;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			b = false;
-			f = new LoginForm(b, null);
+			f = new LoginForm(b, name, form.getMail());
 			return f;
 		} finally {
 			DBUtils.close(con, ps, rs);

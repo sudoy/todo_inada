@@ -35,17 +35,17 @@ public class LoginServlet extends HttpServlet {
 		LoginForm form = new LoginForm(mail, pass);
 
 		LoginService ls = new LoginService();
-		LoginForm logName = ls.service(form);//ログイン状態（true or false）とログインした人のnameが返ってくる
-		session.setAttribute("login", logName.isLogin());
+		LoginForm logNameMail = ls.service(form);//ログイン状態（true or false）とログインした人のnameと入力したアドレスが返ってくる
+		session.setAttribute("login", logNameMail.isLogin());
 
-		System.out.println(logName.isLogin());
-
-		if (logName.isLogin() == true) {
+		if (logNameMail.isLogin() == true) {
 			session.removeAttribute("error");
-			session.setAttribute("name", logName.getName());
+			session.setAttribute("name", logNameMail.getName());
 			resp.sendRedirect("index.html");
 		} else {
 			session.setAttribute("error", "メールアドレス、またはパスワードが間違っています。");
+			LoginForm mailForm = new LoginForm(logNameMail.getMail());
+			req.setAttribute("mailForm", mailForm);
 			getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
 			//エラーと成功メッセージのみ解放
 			session.removeAttribute("error");

@@ -57,36 +57,49 @@ public class UpdateServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 
-		String number = req.getParameter("number"); //update文で使う
-		String daimei = req.getParameter("daimei");
-		String syosai = req.getParameter("syosai");
-		String juyodoval = req.getParameter("juyodoval");
-		String kigen = req.getParameter("kigen");
-
-		String radio1 = HTMLUtils.radio1(juyodoval);
-		String radio2 = HTMLUtils.radio2(juyodoval);
-		String radio3 = HTMLUtils.radio3(juyodoval);
-
-		UpdateForm form = new UpdateForm(number, daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
-
-		List<String> error = validate(form);
 		HttpSession session = req.getSession();
+		boolean login = false;
 
-		if (error.size() == 0) {
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
 
-			session.setAttribute("kousintouroku", "No." + number + "のTodoを更新しました。");
-			session.setAttribute("error", null);
-
-			UpdateService us = new UpdateService();
-			us.postService(form);
-			resp.sendRedirect("index.html");
+		if (login == false) {
+			session.setAttribute("error", "ログインしてください。");
+			resp.sendRedirect("login.html");
 		} else {
 
-			session.setAttribute("error", error);
-			req.setAttribute("form", form);
+			String number = req.getParameter("number"); //update文で使う
+			String daimei = req.getParameter("daimei");
+			String syosai = req.getParameter("syosai");
+			String juyodoval = req.getParameter("juyodoval");
+			String kigen = req.getParameter("kigen");
 
-			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
+			String radio1 = HTMLUtils.radio1(juyodoval);
+			String radio2 = HTMLUtils.radio2(juyodoval);
+			String radio3 = HTMLUtils.radio3(juyodoval);
 
+			UpdateForm form = new UpdateForm(number, daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
+
+			List<String> error = validate(form);
+
+			if (error.size() == 0) {
+
+				session.setAttribute("kousintouroku", "No." + number + "のTodoを更新しました。");
+				session.setAttribute("error", null);
+
+				UpdateService us = new UpdateService();
+				us.postService(form);
+				resp.sendRedirect("index.html");
+			} else {
+
+				session.setAttribute("error", error);
+				req.setAttribute("form", form);
+
+				getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
+
+			}
 		}
 	}
 
