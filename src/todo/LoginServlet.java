@@ -19,7 +19,11 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 
+		HttpSession session = req.getSession();
+
 		getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+
+		session.removeAttribute("error");
 
 	}
 
