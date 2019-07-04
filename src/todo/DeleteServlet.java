@@ -18,20 +18,35 @@ public class DeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		String number = req.getParameter("number");
-		DeleteForm form = new DeleteForm(number);
 
-		int i = validate(number);
 		HttpSession session = req.getSession();
+		boolean login = false;
 
-		if (i == 0) {
-			DeleteService ds = new DeleteService();
-			ds.service(form);
-			session.setAttribute("kousintouroku", "No." + number + "を削除しました。");
-			session.setAttribute("error", null);
-			resp.sendRedirect("index.html");
+		if (session.getAttribute("login") != null) {
+			//loginがtrue(ログイン状態にある)じゃないと入れないように
+			login = (boolean) session.getAttribute("login");
+		}
+
+		if (login == false) {
+			session.setAttribute("error", "ログインしてください。");
+			resp.sendRedirect("login.html");
 		} else {
-			resp.sendRedirect("index.html");
+
+			String number = req.getParameter("number");
+			DeleteForm form = new DeleteForm(number);
+
+			int i = validate(number);
+
+			if (i == 0) {
+				DeleteService ds = new DeleteService();
+				ds.service(form);
+				session.setAttribute("kousintouroku", "No." + number + "を削除しました。");
+				session.setAttribute("error", null);
+				resp.sendRedirect("index.html");
+			} else {
+				resp.sendRedirect("index.html");
+			}
+
 		}
 
 	}

@@ -44,8 +44,8 @@ public class LoginServlet extends HttpServlet {
 			resp.sendRedirect("index.html");
 		} else {
 			session.setAttribute("error", "メールアドレス、またはパスワードが間違っています。");
-			LoginForm mailForm = new LoginForm(logNameMail.getMail());
-			req.setAttribute("mailForm", mailForm);
+
+			req.setAttribute("logNameMail", logNameMail);
 			getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
 			//エラーと成功メッセージのみ解放
 			session.removeAttribute("error");
