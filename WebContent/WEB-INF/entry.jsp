@@ -10,7 +10,9 @@
 </head>
 <body>
 
-<jsp:include page="ue.jsp"/>
+	<jsp:include page="ue.jsp" >
+			<jsp:param name="btngroup" value=' '/>
+	</jsp:include>
 
 <div class="container">
 

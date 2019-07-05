@@ -31,6 +31,7 @@ public class UpdateServlet extends HttpServlet {
 		session.removeAttribute("kousintouroku");
 
 		boolean login = false;
+		String number = req.getParameter("number");
 
 		if (session.getAttribute("login") != null) {
 			//loginがtrue(ログイン状態にある)じゃないと入れないように
@@ -40,8 +41,9 @@ public class UpdateServlet extends HttpServlet {
 		if (login == false) {
 			session.setAttribute("error", "ログインしてください。");
 			resp.sendRedirect("login.html");
+		} else if (number == null) {//updateでnumberは設定できないので
+			resp.sendRedirect("index.html");
 		} else {
-
 			UpdateService us = new UpdateService();
 
 			req.setAttribute("form", us.service(req.getParameter("number")));//indexから取得したnumberをServiceに渡す
@@ -75,16 +77,21 @@ public class UpdateServlet extends HttpServlet {
 			String syosai = req.getParameter("syosai");
 			String juyodoval = req.getParameter("juyodoval");
 			String kigen = req.getParameter("kigen");
+			String status = req.getParameter("status");
 
-			String radio1 = HTMLUtils.radio1(juyodoval);
-			String radio2 = HTMLUtils.radio2(juyodoval);
-			String radio3 = HTMLUtils.radio3(juyodoval);
+			String radio1 = HTMLUtils.radio1(juyodoval);//チェックされていればcheckedが返る
+			String radio2 = HTMLUtils.radio2(juyodoval);//チェックされていればcheckedが返る
+			String radio3 = HTMLUtils.radio3(juyodoval);//チェックされていればcheckedが返る
 
-			UpdateForm form = new UpdateForm(number, daimei, syosai, juyodoval, kigen, radio1, radio2, radio3);
+			String status1 = HTMLUtils.status1(status);//チェックされていればcheckedが返る
+			String status0 = HTMLUtils.status0(status);//チェックされていればcheckedが返る
+
+			UpdateForm form = new UpdateForm(number, daimei, syosai, juyodoval, kigen, radio1, radio2, radio3,
+					status, status1, status0);
 
 			List<String> error = validate(form);
 
-			if (error.size() == 0) {
+			if (error.size() == 0) {//エラーが一つもなければ
 
 				session.setAttribute("kousintouroku", "No." + number + "のTodoを更新しました。");
 				session.setAttribute("error", null);
@@ -92,7 +99,7 @@ public class UpdateServlet extends HttpServlet {
 				UpdateService us = new UpdateService();
 				us.postService(form);
 				resp.sendRedirect("index.html");
-			} else {
+			} else {//エラーがあれば
 
 				session.setAttribute("error", error);
 				req.setAttribute("form", form);
@@ -108,6 +115,7 @@ public class UpdateServlet extends HttpServlet {
 
 		List<String> error = new ArrayList<>();
 
+		//id(number)の必須入力チェック
 		if (form.getNumber().equals("")) {
 			try {
 				Integer.parseInt(form.getNumber());
@@ -116,6 +124,7 @@ public class UpdateServlet extends HttpServlet {
 			}
 		}
 
+		//題名の必須入力チェック
 		if (form.getDaimei().equals("")) {//daimeiが空
 			error.add("題名は必須入力です。");
 		}
@@ -123,6 +132,7 @@ public class UpdateServlet extends HttpServlet {
 			error.add("題名は100文字以内にしてください。");
 		}
 
+		//期限のチェック
 		if (!(form.getKigen().equals(""))) {//kigenが空じゃない時
 
 			try {
@@ -134,12 +144,19 @@ public class UpdateServlet extends HttpServlet {
 			}
 		}
 
-		//option1,2,3のどれでもない、またはnull
+		//重要度がoption1,2,3のどれでもない、またはnull
 		if (form.getJuyodoval() == null) {
 			error.add("重要度は必須入力です。");
 		} else if (!(form.getJuyodoval().equals("option1")) && !(form.getJuyodoval().equals("option2"))
 				&& !(form.getJuyodoval().equals("option3"))) {
 			error.add("重要度の入力が不適です。");
+		}
+
+		//statusが0でも1でもない、またはnull
+		if (form.getStatus() == null) {
+			error.add("ステータスは必須入力です。");
+		} else if (!(form.getStatus().equals("0")) && !(form.getStatus().equals("1"))) {
+			error.add("ステータスの入力が不適です。");
 		}
 
 		return error;

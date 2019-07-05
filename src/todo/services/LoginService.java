@@ -24,7 +24,7 @@ public class LoginService {
 
 		try {
 			con = DBUtils.getConnection();
-			sql = "select mail, pass, name from user where mail = ? and pass = ?";
+			sql = "select mail, pass, name from user where mail = ? and pass = ?";//ここでSHA2()使えばよかった
 			ps = con.prepareStatement(sql);
 
 			//入力されたパスワードをハッシュ化

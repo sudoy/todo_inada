@@ -22,7 +22,7 @@ public class UpdateService {
 		try {
 			con = DBUtils.getConnection();
 
-			sql = "SELECT daimei, syosai, juyodoval, kigen FROM todolist where number = ?";
+			sql = "SELECT daimei, syosai, juyodoval, kigen, status FROM todolist where number = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, number);
 			rs = ps.executeQuery();
@@ -37,11 +37,12 @@ public class UpdateService {
 				if (kigen != null) {
 					kigen = HTMLUtils.kigenFormat(kigen);
 				}
+				String status = rs.getString("status");
 
 				uf = new UpdateForm(number, daimei, syosai, kigen, HTMLUtils.radio1(juyodoval),
-						HTMLUtils.radio2(juyodoval), HTMLUtils.radio3(juyodoval));
+						HTMLUtils.radio2(juyodoval), HTMLUtils.radio3(juyodoval), HTMLUtils.status1(status),
+						HTMLUtils.status0(status));
 			}
-
 			return uf;
 
 		} catch (Exception e) {
@@ -59,7 +60,7 @@ public class UpdateService {
 		try {
 
 			con = DBUtils.getConnection();
-			sql = "update todolist set daimei = ?, syosai = ?, juyodoval = ?, kigen = ? where number = ?";
+			sql = "update todolist set daimei = ?, syosai = ?, juyodoval = ?, kigen = ?, status = ? where number = ?";
 			ps = con.prepareStatement(sql);
 
 			String kigen = form.getKigen();
@@ -72,9 +73,8 @@ public class UpdateService {
 			ps.setString(2, form.getSyosai());
 			ps.setString(3, juyodoval);
 			ps.setString(4, kigen);
-			ps.setString(5, form.getNumber());
-
-			System.out.println("ps:" + ps);
+			ps.setString(5, form.getStatus());
+			ps.setString(6, form.getNumber());
 
 			ps.executeUpdate();
 		} catch (Exception e) {

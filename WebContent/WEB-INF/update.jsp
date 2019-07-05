@@ -10,7 +10,9 @@
 </head>
 <body>
 
-<jsp:include page="ue.jsp"/>
+	<jsp:include page="ue.jsp" >
+			<jsp:param name="btngroup" value=' '/>
+	</jsp:include>
 
 <div class="container">
 
@@ -43,6 +45,10 @@
 	<tr><th>期限</th>
 		<td><input type="text" class="form-control" name="kigen" value="${form.kigen}"></td>
 	</tr>
+	<tr><th>ステータス</th>
+	<td><label class="radio-inline"><input type="radio" name="status" value="0" ${form.status0}>未完了</label><br>
+	<label class="radio-inline"><input type="radio" name="status" value="1" ${form.status1}>完了</label></td>
+	</tr>
 	<tr><th></th>
 	<td id="canto">
 	<div class="form-group">
@@ -52,6 +58,7 @@
 	</div>
 
 	</td></tr>
+
 	</table>
 </form>
 

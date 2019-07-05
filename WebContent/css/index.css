@@ -37,7 +37,20 @@ th, td{
     background-color: #fff9f3;
     border-color: #f3c8b0;
 }
-
-#ue{
-	border-top-style: none;
+.kanryotsuika{
+	margin-bottom: 20px;
+}
+.page{
+	text-align: center;
+}
+#tsuika{
+	float: right;
+}
+.barright{
+	float: right;
+}
+.btn-info {
+    color: #555;
+    background-color: white;
+    border-color: white;
 }

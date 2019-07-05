@@ -55,7 +55,7 @@ public class DeleteServlet extends HttpServlet {
 
 		int i = 0;
 
-		if (number.equals("")) {
+		if ((number == null) || (number.equals(""))) {
 			try {
 				Integer.parseInt(number);
 			} catch (Exception e) {

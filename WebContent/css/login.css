@@ -44,3 +44,12 @@ h2{
 	margin-left: 450px;
 	margin-top: 30px;
 }
+
+.barright{
+	float: right;
+}
+.btn-info {
+    color: #555;
+    background-color: white;
+    border-color: white;
+}

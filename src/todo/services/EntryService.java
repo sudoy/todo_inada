@@ -19,7 +19,7 @@ public class EntryService {
 		try {
 
 			con = DBUtils.getConnection();
-			sql = "INSERT INTO todolist (daimei, syosai, juyodoval, kigen) VALUES(?, ?, ?, ?)";
+			sql = "INSERT INTO todolist (daimei, syosai, juyodoval, kigen, status) VALUES(?, ?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 
 			String kigen = form.getKigen();
@@ -32,6 +32,7 @@ public class EntryService {
 			ps.setString(2, form.getSyosai());
 			ps.setString(3, juyodoval);
 			ps.setString(4, kigen);
+			ps.setString(5, "0");
 
 			ps.executeUpdate();
 		} catch (Exception e) {

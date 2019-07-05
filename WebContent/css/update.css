@@ -61,5 +61,13 @@ td{
 	float: right;
 	margin-right: 15px;
 	margin-left: -15px;
-	
+
+}
+.barright{
+	float: right;
+}
+.btn-info {
+    color: #555;
+    background-color: white;
+    border-color: white;
 }

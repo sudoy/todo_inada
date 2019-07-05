@@ -37,7 +37,9 @@ th, td{
     background-color: #fff9f3;
     border-color: #f3c8b0;
 }
-
-#ue{
-	border-top-style: none;
+.kanryotsuika{
+	margin-bottom: 20px;
+}
+.page{
+	margin: 0 auto;
 }

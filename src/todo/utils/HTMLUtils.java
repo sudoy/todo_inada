@@ -43,4 +43,19 @@ public class HTMLUtils {
 		}
 	}
 
+	public static String status1(String status) {
+		if(status.equals("1")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+	public static String status0(String status) {
+		if(status.equals("0")) {
+			return "checked";
+		}else {
+			return "";
+		}
+	}
+
 }
