@@ -52,5 +52,11 @@ public class IndexForm {
 	public void setKanryoNumArray(String[] kanryoNumArray) {
 		this.kanryoNumArray = kanryoNumArray;
 	}
+	public String getDaimei() {
+		return daimei;
+	}
+	public void setDaimei(String daimei) {
+		this.daimei = daimei;
+	}
 
 }
