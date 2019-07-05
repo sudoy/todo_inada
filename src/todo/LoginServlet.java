@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 		LoginForm logNameMail = ls.service(form);//ログイン状態（true or false）とログインした人のnameと入力したアドレスが返ってくる
 		session.setAttribute("login", logNameMail.isLogin());
 
-		if (logNameMail.isLogin() == true) {
+		if (logNameMail.isLogin() == true) {//mailとpassが正しければ（trueが返ってきていれば）
 			session.removeAttribute("error");
 			session.setAttribute("name", logNameMail.getName());
 			resp.sendRedirect("index.html");
