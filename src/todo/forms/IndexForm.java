@@ -28,12 +28,6 @@ public class IndexForm {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	public String getDaimei() {
-		return daimei;
-	}
-	public void setDaimei(String daimei) {
-		this.daimei = daimei;
-	}
 	public String getJuyodoval() {
 		return juyodoval;
 	}
